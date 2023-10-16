@@ -17,6 +17,11 @@ function createBoard() {
 createBoard();
 
 function addGo(e) {
+  const squareClass = e.target.classList[0];
+  const squareChild = e.target.children[0];
+
+  if (squareChild || ["circle", "cross"].includes(squareClass)) return;
+
   const goDisplay = document.createElement("div");
   goDisplay.classList.add(go);
   e.target.append(goDisplay);
