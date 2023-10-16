@@ -50,7 +50,7 @@ function checkScore() {
     );
 
     if (circleWins) {
-      infoDisplay.textContent = "Circle Wins";
+      infoDisplay.textContent = "Circle Wins!";
       allSquares.forEach((square) =>
         square.replaceWith(square.cloneNode(true))
       );
@@ -64,11 +64,16 @@ function checkScore() {
     );
 
     if (crossWins) {
-      infoDisplay.textContent = "Cross Wins";
+      infoDisplay.textContent = "Cross Wins!";
       allSquares.forEach((square) =>
         square.replaceWith(square.cloneNode(true))
       );
       return;
     }
   });
+
+  const fiveCircles = document.querySelectorAll(".circle");
+  if (fiveCircles.length === 5) {
+    infoDisplay.textContent = "Tie Game!";
+  }
 }
