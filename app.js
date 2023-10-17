@@ -2,9 +2,9 @@ const gameBoard = document.querySelector("#gameboard");
 const infoDisplay = document.querySelector("#info");
 const startCells = ["", "", "", "", "", "", "", "", ""];
 let go = "circle";
-infoDisplay.textContent = "Circle goes first";
+infoDisplay.innerHTML = `<span id="shape" style="color: blue;">${go}</span> goes first`;
 
-function createBoard() {
+(function createBoard() {
   startCells.forEach((cell, index) => {
     const cellElement = document.createElement("div");
     cellElement.classList.add("square");
@@ -12,9 +12,7 @@ function createBoard() {
     cellElement.addEventListener("click", addGo);
     gameBoard.append(cellElement);
   });
-}
-
-createBoard();
+})();
 
 function addGo(e) {
   const squareClass = e.target.classList[0];
@@ -26,7 +24,10 @@ function addGo(e) {
   goDisplay.classList.add(go);
   e.target.append(goDisplay);
   go = go === "circle" ? "cross" : "circle";
-  infoDisplay.textContent = `It is now ${go}'s turn`;
+  let color = go === "circle" ? "blue" : "red";
+  infoDisplay.innerHTML = `It is now <span id="shape">${go}</span>'s turn`;
+  document.querySelector("#shape").style.color = color;
+
   e.target.addEventListener("click", addGo);
   checkScore();
 }
@@ -50,7 +51,8 @@ function checkScore() {
     );
 
     if (circleWins) {
-      infoDisplay.textContent = "Circle Wins!";
+      infoDisplay.innerHTML = `<span id="shape" style="color: blue;">Circle</span> Wins!`;
+      document.querySelector("body").style.backgroundColor = "blue";
       allSquares.forEach((square) =>
         square.replaceWith(square.cloneNode(true))
       );
@@ -64,7 +66,8 @@ function checkScore() {
     );
 
     if (crossWins) {
-      infoDisplay.textContent = "Cross Wins!";
+      infoDisplay.innerHTML = `<span id="shape" style="color: red;">Cross</span> Wins!`;
+      document.querySelector("body").style.backgroundColor = "red";
       allSquares.forEach((square) =>
         square.replaceWith(square.cloneNode(true))
       );
